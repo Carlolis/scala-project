@@ -1,3 +1,5 @@
+import example.{Channel, Subscribe}
+
 1 + 1
 
 val x = 42
@@ -19,11 +21,28 @@ case class circle(radius:Double) :
 
 circle(3).area
 
-case class Rectangle(width:Int,height:Int):
+sealed trait Shape
+
+case class Rectangle(width:Int,height:Int) extends Shape:
   val area = width * height
+
+
+case class Square(width:Int) extends Shape
+
+
 
 val rectangle = Rectangle(3,4)
 
 val largerRectangle = rectangle.copy(width = rectangle.width*2)
 
 largerRectangle.area
+
+val shape: Shape = rectangle
+
+val someShapeArea =
+  shape match
+    case rectangleShape : Rectangle => rectangleShape.area
+    case Square(width) => width * width
+
+
+val subscribeEffectiveScala= Subscribe(Channel("Effective-scala")
